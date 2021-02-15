@@ -1,8 +1,8 @@
-Testing Framework tESTY MCfAIL fACE
+Testing Framework - PEDIGREE
 -----
 
 Include:
-- to Equal /
+- to Equal
 - to throw errors
 - doubles
 - empty/not_empty / nil/not_nil
