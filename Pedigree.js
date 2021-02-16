@@ -4,8 +4,8 @@ var testLog = [];
 const expect = (actual) => ({
 
   toEqual: (expected) => {
-    if (actual === expected) { testLog[`expect(${actual}).toEqual(${expected})`] = true }
-    else { testLog[`expect(${actual}).toEqual(${expected})`] = false };
+    if (actual === expected) { return testLog[`expect(${actual}).toEqual(${expected})`] = true }
+    else { return testLog[`expect(${actual}).toEqual(${expected})`] = false };
   },
 
   notToEqual: (expected) => {
@@ -14,12 +14,27 @@ const expect = (actual) => ({
   },
 
   toThrowError: (expectedError) => {
-    testLog[`expect(${actual}).toThrowError(${expectedError})`] = false ;
     try { actual() }
     catch(error) {
-       if (expectedError === (error.message)) { testLog[`expect(${actual}).toThrowError(${expectedError})`] = true  }
-       else {testLog[`expect(${actual}).toThrowError(${expectedError})`] = error ;};
+       if (expectedError === (error.message)) { return testLog[`expect(${actual}).toThrowError(${expectedError})`] = true  };
+       {return testLog[`expect(${actual}).toThrowError(${expectedError})`] = error ;};
     }
+    return testLog[`expect(${actual}).toThrowError(${expectedError})`] = false;
+  },
+
+  not: function(matcher) {
+    this.f = new Function(`return this.${matcher}`);
+    // console.log('the functions returns');
+    // console.log(this.f());
+    // console.log('end this.f()');
+    // console.log(this.f() ? (this.f() === false ? 'truely false true' : 'truely false false') : 'false' );
+    // return (this.f() ? false : ( this.f() === false ? true : this.f() ) );
+    return testLog[`expect(${actual}).${matcher}`] = (this.f() ? false : ( this.f() === false ? true : this.f() ) );
+
+
+    // if(typeof returnValue === 'boolean') { tribute to hugh
+    //   return !returnValue;
+    // } else { return returnValue }
   }
 
 })
