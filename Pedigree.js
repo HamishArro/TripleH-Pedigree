@@ -12,20 +12,24 @@ const referee = (actual) => ({
 
   ,toThrowError: (expectedError) => {
     try { actual()}
-    catch(error) { if (expectedError === (error.message)) { return "PASS" };
+    catch(error) {
+      console.log("Inside catch");
+       if (expectedError === (error.message)) { return "PASS" };
       return "FAILED WRONG ERROR";
     }
   return "FAIL";
   }
 
-  ,not: (matcher) => {
-    // console.log(this)
-    // console.log(referee.matcher)
-    // if(matcher === "PASS") {
-    //   return "FAIL"
-    // } else {
-    //   return "PASS"
-    // }
+  ,not: function(matcher) {
+    this.f = new Function(`return this.${matcher}`)
+    switch(this.f()) {
+    case "PASS":
+      return "FAIL";
+    case "FAIL":
+      return "PASS";
+    default:
+      return this.f();
+    }
   }
 
 })
