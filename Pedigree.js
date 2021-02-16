@@ -4,26 +4,22 @@ var testLog = [];
 const expect = (actual) => ({
 
   toEqual: (expected) => {
-    console.log("inside toEqual");
-    if (actual === expected) { testLog.push(true) }
-    else { testLog.push(false) };
+    if (actual === expected) { testLog[`expect(${actual}).toEqual(${expected})`] = true }
+    else { testLog[`expect(${actual}).toEqual(${expected})`] = false };
+  },
+
+  notToEqual: (expected) => {
+    if (actual === expected) { testLog[`expect(${actual}).toEqual(${expected})`] = false }
+    else { testLog[`expect(${actual}).toEqual(${expected})`] = true };
   },
 
   toThrowError: (expectedError) => {
-    try { actual()}
+    testLog[`expect(${actual}).toThrowError(${expectedError})`] = false ;
+    try { actual() }
     catch(error) {
-       if (expectedError === (error.message)) { return true };
-      return error;
+       if (expectedError === (error.message)) { testLog[`expect(${actual}).toThrowError(${expectedError})`] = true  }
+       else {testLog[`expect(${actual}).toThrowError(${expectedError})`] = error ;};
     }
-  return false;
-  },
-
-  not: function(matcher) {
-    this.f = new Function(`return this.${matcher}`)
-    returnValue = this.f();
-    if(typeof returnValue === 'boolean') {
-      return !returnValue;
-    } else { return returnValue }
   }
 
 })
@@ -31,9 +27,7 @@ const expect = (actual) => ({
 const it = (description, test) => {
 
   testLog = [];
-  console.log(testLog);
   test();
-  console.log(testLog);
   allTestLog[description] = testLog;
 
 }
