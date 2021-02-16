@@ -1,34 +1,25 @@
 const referee = (actual) => ({
 
   toEqual: (expected) => {
-    if (actual === expected){ return "PASS" };
-    return "FAIL";
-  }
-
-  ,notToEqual: (expected) =>  {
-    if (actual === expected){ return "FAIL" };
-    return "PASS";
+    if (actual === expected){ return true };
+    return false;
   }
 
   ,toThrowError: (expectedError) => {
     try { actual()}
     catch(error) {
-       if (expectedError === (error.message)) { return "PASS" };
-      return "FAILED WRONG ERROR";
+       if (expectedError === (error.message)) { return true };
+      return error;
     }
-  return "FAIL";
+  return false;
   }
 
   ,not: function(matcher) {
     this.f = new Function(`return this.${matcher}`)
-    switch(this.f()) {
-    case "PASS":
-      return "FAIL";
-    case "FAIL":
-      return "PASS";
-    default:
-      return this.f();
-    }
+    returnValue = this.f()
+    if(typeof returnValue === 'boolean') {
+      return !returnValue
+    } else { return returnValue }
   }
 
 })
