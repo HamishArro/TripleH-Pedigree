@@ -13,7 +13,6 @@ const referee = (actual) => ({
   ,toThrowError: (expectedError) => {
     try { actual()}
     catch(error) {
-      console.log("Inside catch");
        if (expectedError === (error.message)) { return "PASS" };
       return "FAILED WRONG ERROR";
     }
