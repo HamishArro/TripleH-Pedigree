@@ -22,7 +22,7 @@ const testUnpacker = (log) => {
   })
 
   if (failedNumber > 0) {
-    result = `<p style="font-size:24px; color:#DC143C;">${failedNumber} tests failed out of ${testNumber} test(s)</p>`
+    result = `<p style="font-size:24px; color:#DC143C;">${failedNumber} tests failed out of ${testNumber} tests</p>`
   }
   else {
     result = `<p style="font-size:24px; color:#66CD00;">All tests passed!</p>`
