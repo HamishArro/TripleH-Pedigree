@@ -8,7 +8,7 @@ it('passes equal to with two examples', () => {
 });
 
 it('passes not equal to', () => {
-  expect(2).notToEqual(3);
+  expect(2).not('toEqual(3)');
 })
 
 it('passes throws an error', () => {
@@ -21,7 +21,7 @@ it('fails equal to', () => {
 });
 
 it('fails not equal to', () => {
-  expect(2).notToEqual(2);
+  expect(2).not('toEqual(2)');
 })
 
 it('fails throws an error and returns error', () => {

@@ -8,11 +8,6 @@ const expect = (actual) => ({
     else { return testLog[`expect(${actual}).toEqual(${expected})`] = false };
   },
 
-  notToEqual: (expected) => {
-    if (actual === expected) { testLog[`expect(${actual}).toEqual(${expected})`] = false }
-    else { testLog[`expect(${actual}).toEqual(${expected})`] = true };
-  },
-
   toThrowError: (expectedError) => {
     try { actual() }
     catch(error) {
@@ -29,8 +24,10 @@ const expect = (actual) => ({
     // console.log('end this.f()');
     // console.log(this.f() ? (this.f() === false ? 'truely false true' : 'truely false false') : 'false' );
     // return (this.f() ? false : ( this.f() === false ? true : this.f() ) );
-    return testLog[`expect(${actual}).${matcher}`] = (this.f() ? false : ( this.f() === false ? true : this.f() ) );
-
+    testLog[`expect(${actual}).not('${matcher}')`] = (this.f() === true ? false : ( this.f() === false ? true : this.f() ) );
+    delete testLog[`expect(${actual}).${matcher}`]
+    // console.log(`expect(${actual}).${matcher}`);
+    // this will delete a test if youre expecting it not to match and to match
 
     // if(typeof returnValue === 'boolean') { tribute to hugh
     //   return !returnValue;
@@ -45,6 +42,5 @@ const it = (description, test) => {
   testLog = [];
   test();
   allTestLog[description] = testLog;
-  clear();
 
 }
