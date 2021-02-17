@@ -33,3 +33,8 @@ it('fails throws an error when no error thrown', () => {
   var coolBeans = () => { 'coool ' + 'beans' }
   expect(coolBeans).toThrowError('this should not pass');
 });
+
+it('displays only the failing test', () => {
+  expect(2).toEqual(2);
+  expect(2).toEqual(3);
+})
