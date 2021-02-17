@@ -33,27 +33,3 @@ const it = (description, test) => {
   allTestLog[description] = testLog;
 
 };
-
-const testUnpacker = (log) => {
-
-  let testDetails = document.getElementById("test-details")
-  let testString = '';
-
-  Object.keys(log).forEach(function (key) {
-      console.log(log[key])
-      pass = true;
-      test = log[key];
-      tempString = '';
-      Object.keys(test).forEach(function (key) {
-          console.log(test[key])
-          if (test[key] !== true ) { pass = false; tempString += `<p style="font-size:14px;">${key}</p>`}
-      })
-      if (pass === false) {
-        testString += `<hr><p style="font-size:20px; font-weight:bold; color:#DC143C;">${key}</p>`;
-        testString += tempString;
-      }
-      else { testString += `<hr><p style="font-size:20px; color:#66CD00;">${key}</p>`};
-  })
-
-  testDetails.innerHTML = testString
-}
