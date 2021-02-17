@@ -19,28 +19,37 @@ const expect = (actual) => ({
 
   not: function(matcher) {
     this.f = new Function(`return this.${matcher}`);
-    // console.log('the functions returns');
-    // console.log(this.f());
-    // console.log('end this.f()');
-    // console.log(this.f() ? (this.f() === false ? 'truely false true' : 'truely false false') : 'false' );
-    // return (this.f() ? false : ( this.f() === false ? true : this.f() ) );
     testLog[`expect(${actual}).not('${matcher}')`] = (this.f() === true ? false : ( this.f() === false ? true : this.f() ) );
     delete testLog[`expect(${actual}).${matcher}`]
-    // console.log(`expect(${actual}).${matcher}`);
-    // this will delete a test if youre expecting it not to match and to match
-
-    // if(typeof returnValue === 'boolean') { tribute to hugh
-    //   return !returnValue;
-    // } else { return returnValue }
   }
 
-})
+});
 
 const it = (description, test) => {
 
-  // grab befores.
+  // run befores -- using a callback?
   testLog = [];
   test();
   allTestLog[description] = testLog;
 
+};
+
+const testUnpacker = (log) => {
+
+  let testDetails = document.getElementById("test-details")
+  let tempString = '';
+
+  Object.keys(log).forEach(function (key) {
+      console.log(log[key])
+      pass = true
+      test = log[key]
+      Object.keys(test).forEach(function (key) {
+          console.log(test[key])
+          if (test[key] !== true ) { pass = false }
+      })
+      if (pass === false) { tempString += `<p>${key} : failed </p>` }
+      else { tempString += `<p>${key} : passed </p>`};
+  })
+
+  testDetails.innerHTML = tempString
 }
