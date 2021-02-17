@@ -41,8 +41,10 @@ const expect = (actual) => ({
 
 const it = (description, test) => {
 
+  // grab befores.
   testLog = [];
   test();
   allTestLog[description] = testLog;
+  clear();
 
 }
