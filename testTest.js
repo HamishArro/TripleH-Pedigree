@@ -1,3 +1,9 @@
+it('adjusts height of paragraph proportional to how many failed expectations', () => {
+  expect(2).toEqual(3);
+  expect(2).toEqual(4);
+  expect(2).toEqual(5);
+})
+
 it('passes equal to', () => {
   expect(2).toEqual(2);
 });
