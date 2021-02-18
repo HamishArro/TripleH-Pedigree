@@ -7,6 +7,11 @@ img {
   background-color: inherit;
 }
 
+#Pedigree {
+  background-color: #000000;
+  color: #FFFFFF;
+}
+
 p {
   margin: 0;
   padding-left: 1rem;
